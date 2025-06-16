@@ -15,7 +15,8 @@ class Course(models.Model):
                                 help_text='Загрузите изображение')
     description = models.TextField(verbose_name='Описание',
                                    **NULLABLE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      **NULLABLE)
     updated_at = models.DateTimeField(auto_now=True,
                                       **NULLABLE)
 
@@ -40,12 +41,20 @@ class Lesson(models.Model):
                                 help_text='Загрузите изображение')
     link = models.URLField(**NULLABLE)
 
-    course = models.ForeignKey(Course, on_delete=models.CASCADE,
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL,
+                               **NULLABLE,
                                related_name='lessons',
                                verbose_name='курс')
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      **NULLABLE)
     updated_at = models.DateTimeField(auto_now=True,
                                       **NULLABLE)
 
+    def __str__(self):
+        return f"Урок: {self.title}"
 
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+        ordering = ['-created_at']

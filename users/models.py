@@ -15,8 +15,8 @@ class LmsUser(AbstractUser):
                                verbose_name='Аватар',
                                help_text='Загрузите фото, по-желанию')
     city = models.CharField(max_length=25, verbose_name='Город',
-                               help_text='Укажите Ваш город',
-                               blank=True, null=True)
+                            help_text='Укажите Ваш город',
+                            blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
