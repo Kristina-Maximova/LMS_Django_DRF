@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 
-from users.models import LmsUser
-from users.serialisers import LmsUserSerializer
+from users.models import LmsUser, Payment
+from users.serialisers import LmsUserSerializer, PaymentCreateSerializer
 
 
 class LmsUserCreateAPIView(generics.CreateAPIView):
@@ -15,3 +15,9 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     def get_queryset(self):
         user = self.request.user
         return LmsUser.objects.filter(pk=user.pk)
+
+
+class PaymentCreateAPIView(generics.CreateAPIView):
+
+        serializer_class = PaymentCreateSerializer
+

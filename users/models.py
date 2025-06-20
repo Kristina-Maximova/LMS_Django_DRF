@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from datetime import datetime
+from lms.models import Course, Lesson
 
 
 class LmsUser(AbstractUser):
@@ -37,3 +40,44 @@ class LmsUser(AbstractUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+
+class Payment(models.Model):
+    CASH = 'cash'
+    TRANSFER = 'transfer'
+    METHOD_CHOICES = [(CASH, 'наличные'),
+                      (TRANSFER, 'перевод')]
+
+    user = models.ForeignKey(LmsUser, on_delete=models.CASCADE,
+                             null=True, blank=True,
+                             related_name='payment',
+                             verbose_name='пользователь')
+    date = models.DateField(auto_now_add=True,
+                            null=True, blank=True,
+                            verbose_name='дата')
+    course = models.ForeignKey(Course,
+                               on_delete=models.CASCADE,
+                               null=True, blank=True,
+                               verbose_name='курс',
+                               related_name='payment')
+    lesson = models.ForeignKey(Lesson,
+                               on_delete=models.CASCADE,
+                               null=True, blank=True,
+                               verbose_name='урок ',
+                               related_name='payment')
+    amount = models.FloatField(validators=[MinValueValidator(0.001)],
+                               null=True, blank=True,
+                               verbose_name='сумма',)
+    methods = models.CharField(max_length=8,
+                               choices=METHOD_CHOICES,
+                               verbose_name='способ оплаты',
+                               null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.course if self.course else self.lesson} - {self.methods} - {self.amount}"
+
+    class Meta:
+        verbose_name = 'платеж'
+        verbose_name_plural = 'платежи'
+        ordering = ("-date",)
+
