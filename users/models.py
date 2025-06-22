@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from datetime import datetime
 from lms.models import Course, Lesson
 
 
@@ -42,6 +41,7 @@ class LmsUser(AbstractUser):
         verbose_name_plural = "Пользователи"
 
 
+
 class Payment(models.Model):
     CASH = 'cash'
     TRANSFER = 'transfer'
@@ -68,7 +68,7 @@ class Payment(models.Model):
     amount = models.FloatField(validators=[MinValueValidator(0.001)],
                                null=True, blank=True,
                                verbose_name='сумма',)
-    methods = models.CharField(max_length=8,
+    method = models.CharField(max_length=8,
                                choices=METHOD_CHOICES,
                                verbose_name='способ оплаты',
                                null=True, blank=True)

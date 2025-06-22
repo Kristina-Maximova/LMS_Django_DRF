@@ -1,0 +1,42 @@
+[
+{
+    "model": "users.lmsuser",
+    "pk": 1,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-21T12:11:58.894Z",
+        "email": "chuk@lms.com",
+        "phone_number": null,
+        "avatar": "",
+        "city": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.lmsuser",
+    "pk": 2,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-21T12:12:39.473Z",
+        "email": "gek@lms.com",
+        "phone_number": null,
+        "avatar": "",
+        "city": null,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

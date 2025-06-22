@@ -59,3 +59,4 @@ class Lesson(models.Model):
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
         ordering = ["-created_at"]
+

@@ -1,0 +1,35 @@
+[
+{
+    "model": "lms.course",
+    "pk": 1,
+    "fields": {
+        "title": "Test-course1.1",
+        "preview": "course_images/default_course.jpg",
+        "description": null,
+        "created_at": "2025-06-16T06:05:39.159Z",
+        "updated_at": "2025-06-16T06:22:02.858Z"
+    }
+},
+{
+    "model": "lms.course",
+    "pk": 3,
+    "fields": {
+        "title": "Языковые курсы",
+        "preview": "course_images/default_course.jpg",
+        "description": null,
+        "created_at": "2025-06-21T07:50:04.413Z",
+        "updated_at": "2025-06-21T08:39:29.048Z"
+    }
+},
+{
+    "model": "lms.course",
+    "pk": 4,
+    "fields": {
+        "title": "Курсы по вождению автомобиля",
+        "preview": "course_images/default_course.jpg",
+        "description": null,
+        "created_at": "2025-06-21T08:26:34.700Z",
+        "updated_at": "2025-06-21T08:39:35.887Z"
+    }
+}
+]

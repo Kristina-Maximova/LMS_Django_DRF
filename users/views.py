@@ -18,6 +18,5 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):
-
         serializer_class = PaymentCreateSerializer
 
