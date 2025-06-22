@@ -1,7 +1,9 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 from users.models import LmsUser, Payment
-from users.serialisers import LmsUserSerializer, PaymentCreateSerializer
+from users.serialisers import LmsUserSerializer, PaymentSerializer
 
 
 class LmsUserCreateAPIView(generics.CreateAPIView):
@@ -9,7 +11,7 @@ class LmsUserCreateAPIView(generics.CreateAPIView):
     permissions = (permissions.IsAuthenticated,)
 
 
-class LessonUpdateAPIView(generics.UpdateAPIView):
+class LmsUserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LmsUser
 
     def get_queryset(self):
@@ -18,5 +20,18 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):
-        serializer_class = PaymentCreateSerializer
+    serializer_class = PaymentSerializer
 
+
+class PaymentListAPIView(generics.ListAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ("course", "lesson", "method")
+    search_fields = ["method"]
+    ordering_fields = ["date", "-date"]
+
+
+class PaymentUpdateAPIView(generics.UpdateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer

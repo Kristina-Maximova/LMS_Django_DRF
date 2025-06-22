@@ -15,7 +15,8 @@ class ShortDescriptionMixin:
             else obj.description
         )
 
-    short_description.short_description = 'Краткое описание'
+    short_description.short_description = "Краткое описание"
+
 
 @admin.register(Course)
 class CourseAdmin(ShortDescriptionMixin, admin.ModelAdmin):

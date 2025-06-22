@@ -4,8 +4,9 @@ from django.core.management.base import BaseCommand
 from lms.models import Course, Lesson
 from users.models import LmsUser, Payment
 
+
 class Command(BaseCommand):
-    help = 'Adding data from fixtures'
+    help = "Adding data from fixtures"
 
     def handle(self, *args, **options):
         # Удаляем существующие записи:
@@ -15,9 +16,9 @@ class Command(BaseCommand):
         Payment.objects.all().delete()
 
         # Загружаем данные из фикстур
-        call_command('loaddata', 'fixtures/course_fixture.json')
-        call_command('loaddata', 'fixtures/lessons_fixture.json')
-        call_command('loaddata', 'fixtures/users_fixture.json')
-        call_command('loaddata', 'fixtures/payment_fixture.json')
+        call_command("loaddata", "fixtures/course_fixture.json")
+        call_command("loaddata", "fixtures/lessons_fixture.json")
+        call_command("loaddata", "fixtures/users_fixture.json")
+        call_command("loaddata", "fixtures/payment_fixture.json")
 
-        self.stdout.write(self.style.SUCCESS('Successfully loaded data from fixture'))
+        self.stdout.write(self.style.SUCCESS("Successfully loaded data from fixture"))
