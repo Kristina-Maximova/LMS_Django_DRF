@@ -29,8 +29,7 @@ class PaymentListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ("course", "lesson", "method")
     search_fields = ["method"]
-    ordering_fields = ["date", "-date"]
-
+    ordering_fields = ["date"]
 
 class PaymentUpdateAPIView(generics.UpdateAPIView):
     queryset = Payment.objects.all()
