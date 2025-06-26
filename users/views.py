@@ -10,6 +10,11 @@ class LmsUserCreateAPIView(generics.CreateAPIView):
     serializer_class = LmsUserSerializer
     permissions = (permissions.IsAuthenticated,)
 
+    def perform_create(self, serializer):
+        user = serializer.save(is_active=True)
+        user.set_password(user.password) # в user.password пароль незахеширован, станет хэширован
+        user.save()
+
 
 class LmsUserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LmsUser

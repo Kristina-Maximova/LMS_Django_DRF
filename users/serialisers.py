@@ -7,7 +7,18 @@ from users.models import LmsUser, Payment
 class LmsUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = LmsUser
-        fields = "__all__"
+        fields = ["id",
+                  "password",
+                  "is_superuser",
+                  "is_staff", "is_active",
+                  "date_joined",
+                  "email",
+                  "phone_number",
+                  "avatar",
+                  "city",
+                  "username",
+                  "groups",
+                  "user_permissions", ]
 
 
 class PaymentSerializer(serializers.ModelSerializer):
