@@ -3,12 +3,13 @@ from rest_framework import generics, permissions
 from rest_framework.filters import OrderingFilter, SearchFilter
 
 from users.models import LmsUser, Payment
-from users.serialisers import LmsUserSerializer, PaymentSerializer
-
+from users.serialisers import LmsUserSerializer, PaymentSerializer, NarrowedUserSerializer
+from users.permissions import IsOwner, IsModerator
 
 class LmsUserCreateAPIView(generics.CreateAPIView):
     serializer_class = LmsUserSerializer
-    permissions = (permissions.IsAuthenticated,)
+    queryset = LmsUser.objects.all()
+    permission_classes = (permissions.AllowAny,)
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
@@ -17,11 +18,31 @@ class LmsUserCreateAPIView(generics.CreateAPIView):
 
 
 class LmsUserUpdateAPIView(generics.UpdateAPIView):
-    serializer_class = LmsUser
+    serializer_class = NarrowedUserSerializer
+    permission_classes = [IsOwner]
 
     def get_queryset(self):
         user = self.request.user
         return LmsUser.objects.filter(pk=user.pk)
+
+
+class LmsUserDestroyApiView(generics.DestroyAPIView):
+    serializer_class = LmsUserSerializer
+    queryset = LmsUser.objects.all()
+    permission_classes = [IsOwner]
+
+class LmsUserListApiView(generics.ListAPIView):
+    serializer_class = NarrowedUserSerializer
+    queryset = LmsUser.objects.all()
+    permission_classes = [IsModerator]
+
+
+class LsmUserRetrieveApiView(generics.RetrieveAPIView):
+    serializer_class = NarrowedUserSerializer
+    queryset = LmsUser.objects.all()
+    permission_classes = []
+
+
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):

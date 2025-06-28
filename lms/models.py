@@ -1,5 +1,8 @@
 from django.db import models
 
+# from users.models import LmsUser - так ошибка с circular import
+from config import settings
+
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -15,9 +18,14 @@ class Course(models.Model):
         default="course_images/default_course.jpg",
         help_text="Загрузите изображение",
     )
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.SET_NULL,
+                              **NULLABLE,
+                              verbose_name="пользователь")
     description = models.TextField(verbose_name="Описание", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
     updated_at = models.DateTimeField(auto_now=True, **NULLABLE)
+
 
     def __str__(self):
         return f"Курс: {self.title}"
@@ -48,6 +56,10 @@ class Lesson(models.Model):
         related_name="lessons",
         verbose_name="курс",
     )
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.SET_NULL,
+                              **NULLABLE,
+                              verbose_name="пользователь")
 
     created_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
     updated_at = models.DateTimeField(auto_now=True, **NULLABLE)
