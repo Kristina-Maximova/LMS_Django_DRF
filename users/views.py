@@ -3,8 +3,13 @@ from rest_framework import generics, permissions
 from rest_framework.filters import OrderingFilter, SearchFilter
 
 from users.models import LmsUser, Payment
-from users.serialisers import LmsUserSerializer, PaymentSerializer, NarrowedUserSerializer
-from users.permissions import IsOwner, IsModerator
+from users.permissions import IsModerator, IsOwner
+from users.serialisers import (
+    LmsUserSerializer,
+    NarrowedUserSerializer,
+    PaymentSerializer,
+)
+
 
 class LmsUserCreateAPIView(generics.CreateAPIView):
     serializer_class = LmsUserSerializer
@@ -13,7 +18,9 @@ class LmsUserCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
-        user.set_password(user.password) # в user.password пароль незахеширован, станет хэширован
+        user.set_password(
+            user.password
+        )  # в user.password пароль незахеширован, станет хэширован
         user.save()
 
 
@@ -31,6 +38,7 @@ class LmsUserDestroyApiView(generics.DestroyAPIView):
     queryset = LmsUser.objects.all()
     permission_classes = [IsOwner]
 
+
 class LmsUserListApiView(generics.ListAPIView):
     serializer_class = NarrowedUserSerializer
     queryset = LmsUser.objects.all()
@@ -41,8 +49,6 @@ class LsmUserRetrieveApiView(generics.RetrieveAPIView):
     serializer_class = NarrowedUserSerializer
     queryset = LmsUser.objects.all()
     permission_classes = []
-
-
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):
@@ -56,6 +62,7 @@ class PaymentListAPIView(generics.ListAPIView):
     filterset_fields = ("course", "lesson", "method")
     search_fields = ["method"]
     ordering_fields = ["date"]
+
 
 class PaymentUpdateAPIView(generics.UpdateAPIView):
     queryset = Payment.objects.all()

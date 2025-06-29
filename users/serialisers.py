@@ -7,27 +7,35 @@ from users.models import LmsUser, Payment
 class LmsUserSerializer(ModelSerializer):
     class Meta:
         model = LmsUser
-        fields = ["id",
-                  "password",
-                  "is_superuser",
-                  "is_staff",
-                  "is_active",
-                  "date_joined",
-                  "email",
-                  "phone_number",
-                  "avatar",
-                  "city",
-                  "username",
-                  "first_name",
-                  "last_name",
-                  "groups",
-                  "user_permissions"]
+        fields = [
+            "id",
+            "password",
+            "is_superuser",
+            "is_staff",
+            "is_active",
+            "date_joined",
+            "email",
+            "phone_number",
+            "avatar",
+            "city",
+            "username",
+            "first_name",
+            "last_name",
+            "groups",
+            "user_permissions",
+        ]
+
 
 class NarrowedUserSerializer(ModelSerializer):
     class Meta:
-        model=LmsUser
-        fields = ("id", "email", "avatar", "phone_number", "city",)
-
+        model = LmsUser
+        fields = (
+            "id",
+            "email",
+            "avatar",
+            "phone_number",
+            "city",
+        )
 
 
 class PaymentSerializer(ModelSerializer):

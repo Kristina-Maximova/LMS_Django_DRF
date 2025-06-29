@@ -1,0 +1,40 @@
+[
+    {
+        "id": 2,
+        "password": "pbkdf2_sha256$1000000$xD856omlRoqc5wR0YpM2zv$xRNIsUMuFKrArWbMvRFOF0kIwUX/eolzw2A1o1cCjns=",
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-21T15:12:39+03:00",
+        "email": "gek@lms.com",
+        "phone_number": null,
+        "avatar": null,
+        "city": null,
+        "username": null,
+        "first_name": "",
+        "last_name": "",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    },
+    {
+        "id": 1,
+        "password": "pbkdf2_sha256$1000000$s9LEFd11U3gRG3FR3Dgk9z$nr4MBQBtcplclTg8rUS18LJd75fLzlHqvALAsdsjgvk=",
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-21T15:11:58+03:00",
+        "email": "chuk@lms.com",
+        "phone_number": null,
+        "avatar": null,
+        "city": null,
+        "username": null,
+        "first_name": "",
+        "last_name": "",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+]
