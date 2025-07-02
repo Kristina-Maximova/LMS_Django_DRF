@@ -1,4 +1,5 @@
 from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from users.permissions import IsModerator, IsOwner
 
@@ -22,14 +23,19 @@ class CourseViewSet(viewsets.ModelViewSet):
         return CourseSerializer
 
     def get_permissions(self):
-        if self.action in ["list", "retrieve", "update", "partial_update"]:
+        if self.action in ["retrieve", "update", "partial_update"]:
             self.permission_classes = [IsOwner | IsModerator]
         elif self.action == "create":
             self.permission_classes = [~IsModerator]
         elif self.action == "destroy":
             self.permission_classes = [~IsModerator, IsOwner]
+        elif self.action == 'list':
+            self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(owner=self.request.user)
 
 class LessonCreateAPIView(generics.CreateAPIView):
     serializer_class = LessonSerializer
@@ -42,7 +48,11 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-    permission_classes = [IsModerator | IsOwner]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(owner=self.request.user)
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):

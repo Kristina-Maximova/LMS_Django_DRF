@@ -48,7 +48,7 @@ class LmsUserListApiView(generics.ListAPIView):
 class LsmUserRetrieveApiView(generics.RetrieveAPIView):
     serializer_class = NarrowedUserSerializer
     queryset = LmsUser.objects.all()
-    permission_classes = []
+    permission_classes = [IsModerator | IsOwner]
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):
